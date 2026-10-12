@@ -1,85 +1,74 @@
-# Проект: Оценка кредитного риска (PD) и рыночного риска (VaR)
+<div align="center">
 
-## Описание проекта
-Этот проект объединяет два ключевых направления риск-менеджмента:  
-1. **Кредитный риск** — построение модели для предсказания вероятности дефолта (PD) заёмщика.  
-2. **Рыночный риск** — расчёт Value-at-Risk (VaR) для портфеля акций.  
+# 🏦 PD-Macro Analytics
 
-Цель — показать, как эти два типа риска могут быть связаны и оценены в рамках одного портфеля.
+### Прогнозирование вероятности дефолта заёмщиков с учётом макроэкономических факторов Чехии
 
----
+**Прогнозно-аналитическая система для оценки кредитного риска и стресс-тестирования**
 
-## Данные
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![CatBoost](https://img.shields.io/badge/CatBoost-1.2+-FFCC00?style=for-the-badge&logo=yandex&logoColor=black)](https://catboost.ai/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.30+-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Prefect](https://img.shields.io/badge/Prefect-2.14+-070E10?style=for-the-badge&logo=prefect&logoColor=white)](https://www.prefect.io/)
+[![License](https://img.shields.io/badge/License-Academic-blue?style=for-the-badge)](./LICENSE)
 
-### Источник
-Датасет **Give Me Some Credit** с Kaggle (соревнование по кредитному скорингу).  
-Ссылка: [Kaggle Give Me Some Credit](https://www.kaggle.com/c/GiveMeSomeCredit)
+[![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)]()
+[![Tests](https://img.shields.io/badge/Tests-passing-success?style=flat-square)]()
+[![Code style](https://img.shields.io/badge/Code%20style-black-000000?style=flat-square)]()
 
-### Целевая переменная
-- `SeriousDlqin2yrs` — флаг дефолта (1 — клиент не вернул кредит, 0 — вернул).
-
-### Признаки
-
-| Название признака | Описание |
-|-------------------|----------|
-| `RevolvingUtilizationOfUnsecuredLines` | Доля использованного кредитного лимита по открытым кредитным картам |
-| `age` | Возраст заёмщика (в годах) |
-| `NumberOfTime30-59DaysPastDueNotWorse` | Количество просрочек на 30–59 дней за последние 2 года |
-| `DebtRatio` | Отношение ежемесячных долговых обязательств к доходу (DTI) |
-| `MonthlyIncome` | Месячный доход заёмщика (в долларах) |
-| `NumberOfOpenCreditLinesAndLoans` | Количество открытых кредитных линий и займов |
-| `NumberOfTimes90DaysLate` | Количество просрочек более чем на 90 дней |
-| `NumberRealEstateLoansOrLines` | Количество кредитов на недвижимость |
-| `NumberOfTime60-89DaysPastDueNotWorse` | Количество просрочек на 60–89 дней |
-| `NumberOfDependents` | Количество иждивенцев |
+</div>
 
 ---
 
-## Этапы проекта
+## 📖 О проекте
 
-1. **Предобработка данных**  
-   - Обработка пропусков, выбросов  
-   - Проверка распределений и корреляций  
+**PD-Macro Analytics** — это end-to-end система машинного обучения, которая прогнозирует **вероятность дефолта (PD)** заёмщиков с учётом **макроэкономической динамики Чешской Республики**.
 
-2. **Моделирование кредитного риска (PD)**  
-   - Обучение XGBoost на исторических данных  
-   - Оценка качества модели (AUC-ROC, Gini)  
-   - Интерпретация признаков (feature importance)  
+Система отвечает на практический вопрос банковского риск-менеджмента:
 
-3. **Расчёт рыночного риска (VaR)**  
-   - Сбор данных по акциям (yfinance)  
-   - Расчёт исторического и параметрического VaR (95% и 99%)  
+> *«Как изменится вероятность дефолта заёмщиков, если ставка ЦБ вырастет, курс кроны ослабнет, а мировой рынок войдёт в кризис?»*
 
-4. **Интеграция рисков**  
-   - Оценка совокупного риска портфеля, состоящего из кредитов и акций  
+### 🎯 Ключевые возможности
 
----
-
-## Результаты
-
-- **Кредитный скоринг:**  
-  AUC-ROC на тестовой выборке — `0.86` (цифру вставишь свою после обучения)  
-  Ключевые признаки: `RevolvingUtilizationOfUnsecuredLines`, `age`, `DebtRatio`
-
-- **Рыночный риск (VaR):**  
-  Исторический VaR 95% для портфеля акций: `-2.1%`  
-  Параметрический VaR 95%: `-2.3%`  
-
-(цифры потом заменишь на свои)
+| | Возможность | Описание |
+|---|---|---|
+| 📥 | **Сбор данных** | 5 разнородных источников (Kaggle, CNB, PX, Yahoo, Eurostat) |
+| 🧹 | **Обработка** | Очистка, работа с пропусками, генерация признаков (DTI, PTI, лаги) |
+| 🔮 | **Прогноз макро** | Prophet / SARIMA / Naive → выбор лучшего по MAPE |
+| 🤖 | **PD-модели** | LogReg / Random Forest / CatBoost → выбор лучшего по ROC-AUC |
+| 🧠 | **Интерпретация** | SHAP-анализ для каждого заёмщика |
+| 🎬 | **Сценарии** | Оптимистичный / базовый / кризисный стресс-тест |
+| 📊 | **Дашборд** | Streamlit с ползунками макро-факторов в реальном времени |
+| ⚙️ | **Оркестрация** | Prefect для автоматического запуска пайплайна |
 
 ---
 
-## Как запустить проект
+## 🏗️ Архитектура системы
 
-1. Клонировать репозиторий:  
-   `git clone https://github.com/tвой_аккаунт/credit_risk_project.git`
-
-2. Установить зависимости:  
-   `pip install -r requirements.txt`
-
-3. Запустить Jupyter Notebook:  
-   `jupyter notebook credit_risk_project.ipynb`
-
----
-
-## Структура репозитория
+```mermaid
+flowchart TD
+    A[📥 Источники данных] --> B[⚙️ ETL-модуль]
+    B --> C[(🗄️ Хранилище)]
+    C --> D[🧹 Обработка и EDA]
+    D --> E[🔮 Прогноз макро]
+    D --> F[🤖 PD-модели]
+    E --> G[📈 Прогноз PD]
+    F --> G
+    G --> H[🎬 Сценарии]
+    H --> I[📊 Дашборд]
+    
+    A1[Home Credit] --> A
+    A2[CNB] --> A
+    A3[PX / Yahoo] --> A
+    A4[VIX] --> A
+    A5[Eurostat] --> A
+    
+    style A fill:#DAE8FC,stroke:#6C8EBF
+    style B fill:#D5E8D4,stroke:#82B366
+    style C fill:#FFF2CC,stroke:#D6B656
+    style D fill:#D5E8D4,stroke:#82B366
+    style E fill:#FFE6CC,stroke:#D79B00
+    style F fill:#FFE6CC,stroke:#D79B00
+    style G fill:#FFE6CC,stroke:#D79B00
+    style H fill:#E1D5E7,stroke:#9673A6
+    style I fill:#E1D5E7,stroke:#9673A6
