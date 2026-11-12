@@ -1,0 +1,10 @@
+data/
+models/
+catboost_info/
+venv/
+__pycache__/
+*.pyc
+
+.DS_Store
+.vscode/
+.idea/
